@@ -71,8 +71,9 @@ int initialize_usart6(unsigned long int baudrate)
   if (HAL_UART_Init(&huart6) != HAL_OK)
   {
     Error_Handler();
+    return 1;
   }
-
+  HAL_UART_Receive_IT(&huart6, (unsigned char *)&usart6.receive_data,1);
   return 0;
 
 }

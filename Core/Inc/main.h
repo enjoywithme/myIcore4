@@ -58,6 +58,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define PHY_ISFR 0x1D
+#define PHY_ISFR_INT4 0x0010
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
