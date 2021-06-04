@@ -22,6 +22,7 @@
 #include "lwip.h"
 #include "usart6.h"
 #include "gpio.h"
+#include "led.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -86,11 +87,14 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  usart6.initialize(115200);																						//串口波特设置
-  usart6.printf("\033[1;32;40m");                         						  //设置字体终端为绿色
-  usart6.printf("\r\nHello, I am iCore4 from CubeIDE!\r\n\r\n");											//串口信息输出
-  MX_LWIP_Init();
+  //MX_GPIO_Init();
+  led.initialize(); //LED初始化
+
+  usart6.initialize(115200); //串口波特设置
+  usart6.printf("\033[1;32;40m"); //设置字体终端为绿色
+  usart6.printf("\r\nHello, I am iCore4 from CubeIDE!\r\n\r\n"); //串口信息输出
+
+  //MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -99,9 +103,19 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
+	  usart6.printf("Hello\r\n");
+	  LED_RED_ON;
+	  		LED_BLUE_OFF;
+	  		LED_GREEN_OFF;
+	  		HAL_Delay(500);
+	  		LED_RED_OFF;
+	  		LED_BLUE_ON;
+	  		LED_GREEN_OFF;
+	  		HAL_Delay(500);
+	  		LED_RED_OFF;
+	  		LED_BLUE_OFF;
+	  		LED_GREEN_ON;
+	  		HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
