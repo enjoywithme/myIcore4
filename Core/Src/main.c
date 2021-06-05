@@ -21,12 +21,13 @@
 #include "main.h"
 #include "lwip.h"
 //#include "usart.h"
-#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usart6.h"
 #include "led.h"
+#include "tcp_echoserver.h"
+#include "data_sample.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,7 +47,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+u8_t ad_start_flag;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,14 +89,21 @@ int main(void) {
 	usart6.printf("\033[1;32;40m"); //设置字体终端为绿色
 	usart6.printf("\r\nHello, I am iCore4 from CubeIDE!\r\n\r\n"); //串口信息输出
 
+	MX_LWIP_Init();
+	printf("LWIP initialized.\r\n");
+
+	tcp_echoserver_init();
+	printf("tcp server initialized.\r\n");
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
 	//MX_GPIO_Init();
 	//MX_USART6_UART_Init();
-	MX_LWIP_Init();
+
 	/* USER CODE BEGIN 2 */
+
 	usart6.printf("Begin main loop\r\n");
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -104,7 +112,15 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-		usart6.printf("Hello\r\n");
+		MX_LWIP_Process();
+
+		ADS1274_run();
+
+
+		ADS1274_Send_Data();
+		//stats_display();
+
+//		usart6.printf("Hello\r\n");
 //		LED_RED_ON;
 //		LED_BLUE_OFF;
 //		LED_GREEN_OFF;
@@ -118,7 +134,7 @@ int main(void) {
 //		LED_GREEN_ON;
 //		HAL_Delay(500);
 
-		MX_LWIP_Process();
+
 	}
 	/* USER CODE END 3 */
 }

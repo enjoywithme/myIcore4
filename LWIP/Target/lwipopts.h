@@ -97,7 +97,17 @@
 #define CHECKSUM_CHECK_ICMP6 0
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
+//#define LWIP_STATS_DISPLAY 1
+#define PBUF_NEEDS_COPY(p) 1
 
+#define CHECKSUM_GEN_IP 0
+#define CHECKSUM_GEN_UDP 0
+
+#define TCP_MSS	1400
+#define MEM_USE_POOLS 1
+#define MEMP_USE_CUSTOM_POOLS 1
+#define PBUF_POOL_BUFSIZE 1000
+#define PBUF_POOL_SIZE                  30
 /* USER CODE END 1 */
 
 #ifdef __cplusplus
